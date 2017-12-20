@@ -1,5 +1,3 @@
-# Readme
-
 There are 3 steps which allow to see this code in action:
 
  * build project
