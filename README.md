@@ -15,7 +15,7 @@ There are 3 steps which allow to see this code in action:
 ./gradlew bootRun
 ```
 
-#### Run application:
+#### Run tests:
 Open IDE and run **UserTest** as general JUnit test
 
 ##### For more details visit official documentation:
