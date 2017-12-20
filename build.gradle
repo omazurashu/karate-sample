@@ -1,0 +1,57 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.9.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+group = 'org.om.karate.sample'
+version = '0.0.1'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+sourceSets {
+	test {
+		resources {
+			srcDir file('src/test/java')
+			exclude '**/*.java'
+		}
+	}
+}
+
+test {
+    // pull cucumber options into the cucumber jvm
+    systemProperty "cucumber.options", System.properties.getProperty("cucumber.options")
+    // pull karate options into the jvm
+    systemProperty "karate.env", System.properties.getProperty("karate.env")
+    // ensure tests are always run
+    outputs.upToDateWhen { false }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-data-rest')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('ch.qos.logback:logback-classic:1.2.3')
+    compile('ch.qos.logback:logback-core:1.2.3')
+    runtime('com.h2database:h2')
+    testCompile('org.springframework.boot:spring-boot-starter-test') {
+        exclude module : 'spring-boot-starter-logging'
+    }
+    testCompile('com.intuit.karate:karate-junit4:0.6.2.2')
+    testCompile('com.intuit.karate:karate-apache:0.6.2.2')
+}
